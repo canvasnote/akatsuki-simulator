@@ -225,7 +225,7 @@ const whet_calc = () => {
             <h3 class="card-title">結果</h3>
             <div id="whet_result_content">
                 <!-- 結果表示エリア -->
-                <table class="table">
+                <table class="table table-bordered table-responsive">
                     <thead>サマリー</thead>
                     <tbody>
                     <tr><td>シミュレーション回数</td><td>{{ formatter.format(whet_result_content.simulationCount) }} 回</td></tr>
@@ -235,7 +235,7 @@ const whet_calc = () => {
                     </tbody>
                 </table> 
 
-                <table class="table">
+                <table class="table table-bordered table-responsive">
                     <thead>条件①を満たす</thead>
                     <tbody>
                     <tr><td>条件を満たす確率</td><td>{{ whet_result_content.probability_first.toFixed(2) }} %</td></tr>
@@ -246,7 +246,7 @@ const whet_calc = () => {
                     </tbody>
                 </table> 
 
-                <table class="table">
+                <table class="table table-bordered table-responsive">
                     <thead>条件②を満たす</thead>
                     <tbody>
                     <tr><td>条件を満たす確率</td><td>{{ whet_result_content.probability_total.toFixed(2) }} %</td></tr>
@@ -257,7 +257,7 @@ const whet_calc = () => {
                     </tbody>
                 </table> 
 
-                <table class="table">
+                <table class="table table-bordered table-responsive">
                     <thead>両方を満たす</thead>
                     <tbody>
                     <tr><td>条件を満たす確率</td><td>{{ whet_result_content.probability_both.toFixed(2) }} %</td></tr>
@@ -268,7 +268,7 @@ const whet_calc = () => {
                     </tbody>
                 </table> 
 
-                <table class="table">
+                <table class="table table-bordered table-responsive">
                     <thead>どちらか一方でも満たす</thead>
                     <tbody>
                     <tr><td>条件を満たす確率</td><td>{{ whet_result_content.probability_either.toFixed(2) }} %</td></tr>

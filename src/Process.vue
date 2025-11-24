@@ -161,7 +161,7 @@ const process_calc = () => {
         </div>
         <div id="process_result" class="card">
             <h3>結果</h3>
-             <table class="table">
+             <table class="table table-bordered table-responsive">
                 <thead>サマリー</thead>
                 <tbody>
                     <tr><td>シミュレーション回数</td><td>{{ formatter.format(process_result_content.simulationCount) }} 回</td></tr>
