@@ -188,6 +188,11 @@ const whet_calc = () => {
 <template>
     <div id="whet_settings" class="row container-fluid">
         <h2>研磨</h2>
+        <div id="whet_describe" class="card">
+            宝玉を10段階まで研磨することを10万回シミュレーションし、<br />
+            条件①と②を満たす確率とそれに必要な研磨石数を計算します。<br />
+        </div>
+
         <div id="whet_settings" class="card">
             <h3 class="card-title">設定</h3>
             <div id="first" class="field row">

@@ -131,6 +131,11 @@ const process_calc = () => {
 <template>
     <div id="process" class="row container-fluid">
         <h2>加工</h2>
+        <div id="process_describe" class="card">
+            宝玉を目標の段階になるまで加工することを10万回シミュレーションし、<br />
+            加工石の消費数の最大・最小・平均とメルに換算した消費額を表示します。<br />
+        </div>
+
         <div id="process_settings" class="card">
             <h3 class="card-title">設定</h3>
             <div class="field row">
