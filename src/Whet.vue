@@ -191,6 +191,7 @@ const whet_calc = () => {
         <div id="whet_describe" class="card">
             宝玉を10段階まで研磨することを10万回シミュレーションし、<br />
             条件①と②を満たす確率とそれに必要な研磨石数を計算します。<br />
+            <div class="bs-danger-text-emphasis">10段階強化の正しい確率が得られなかったので、現バージョンでは不正確な結果となっています。</div>
         </div>
 
         <div id="whet_settings" class="card">
