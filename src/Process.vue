@@ -3,7 +3,7 @@ import { i } from 'vite/dist/node/chunks/moduleRunnerTransport';
 import { ref } from 'vue'
 
 const cost_processstone_per_one = 100_000_000; // 研磨石1個あたりのコスト(メル)
-const formatter = new Intl.NumberFormat('ja-JP', { style: 'decimal', minimumIntegerDigits: 3, useGrouping: true });
+const formatter = new Intl.NumberFormat('ja-JP', { style: 'decimal', minimumIntegerDigits: 1, useGrouping: true });
 
 const targetProcessLevel = ref(10)
 const discount = ref('None')
@@ -82,7 +82,7 @@ const process_calc = () => {
     let current_process_level = 1;
     let consume_processstone_count = 0;
 
-    console.log(`--- Simulation Count: ${count + 1} ---`);
+    // console.log(`--- Simulation Count: ${count + 1} ---`);
     // 加工段階1～目標加工段階まで加工実行
     while(true){
         // 加工実行 テーブルから結果取得して加工石消費
@@ -129,38 +129,43 @@ const process_calc = () => {
 </script>
 
 <template>
-    <div id="process">
-    <h2>加工</h2>
-    <div id="process_settings">
-      <h3>設定</h3>
-      <div class="field">
-        <label for="targetProcess">目標加工段階</label>
-        <select id="targetProcess" v-model.number="targetProcessLevel">
-          <option v-for="n in 10" :key="n" :value="n">{{ n }}</option>
-        </select>
-      </div>
-      <div id="total" class="field">
-        <label>割引</label>
-        <select v-model="discount">
-          <option value="None">なし</option>
-          <option value="Guild">商人(ギルドスキル, 4%割引)</option>
-          <option value="Cadena">交渉(カデナ, 4%割引)</option>
-        </select>
-      </div>
-      <button id="button_process_calc" @click="process_calc">計算</button>
+    <div id="process" class="row container-fluid">
+        <h2>加工</h2>
+        <div id="process_settings" class="card">
+            <h3 class="card-title">設定</h3>
+            <div class="field row">
+                <div class="input-group">
+                    <div class="card-subtitle col-3">目標加工段階</div>
+                    <select id="targetProcess" class="form-select col" v-model.number="targetProcessLevel">
+                        <option v-for="n in 10" :key="n" :value="n">{{ n }}</option>
+                    </select>
+                </div>
+                
+            </div>
+            <div id="total" class="field row">
+                <div class="input-group">
+                    <div class="card-subtitle col-3">割引</div>
+                    <select v-model="discount" class="form-select col">
+                        <option value="None">なし</option>
+                        <option value="Guild">商人(ギルドスキル, 4%割引)</option>
+                        <option value="Cadena">交渉(カデナ, 4%割引)</option>
+                    </select>
+                </div>
+            </div>
+            <button id="button_process_calc" class="btn btn-primary mb-3" @click="process_calc">計算(時間がかかります)</button>
+        </div>
+        <div id="process_result" class="card">
+            <h3>結果</h3>
+             <table class="table">
+                <thead>サマリー</thead>
+                <tbody>
+                    <tr><td>シミュレーション回数</td><td>{{ formatter.format(process_result_content.simulationCount) }} 回</td></tr>
+                    <tr><td>最大消費加工石</td><td>{{ formatter.format(process_result_content.maxConsumeProcessstoneCount) }} 個</td></tr>
+                    <tr><td>最小消費加工石</td><td>{{ formatter.format(process_result_content.minConsumeProcessstoneCount) }} 個</td></tr>
+                    <tr><td>平均消費加工石</td><td>{{ formatter.format(process_result_content.averageConsumeProcessstoneCount) }} 個</td></tr>
+                    <tr><td>　⇒メル<img src="./meso.png" alt="メル" class="inline" /></td><td>{{ formatter.format((process_result_content.averageConsumeProcessstoneCount * cost_processstone_per_one * getDiscount(process_result_content.discount)))}} メル</td></tr>
+                </tbody>
+            </table> 
+        </div>
     </div>
-  </div>
-  <div id="process_result">
-    <h3>結果</h3>
-    <div id="process_result_content">
-      <div class="process result summary">
-      <!-- 結果表示エリア -->
-       シミュレーション回数: {{ process_result_content.simulationCount }} 回<br />
-         最大消費加工石<img src="./processstone.png" alt="加工石" class="inline" />数: {{ process_result_content.maxConsumeProcessstoneCount }} 個 <br />
-         最小消費加工石<img src="./processstone.png" alt="加工石" class="inline" />数: {{ process_result_content.minConsumeProcessstoneCount }} 個 <br />
-         平均消費加工石<img src="./processstone.png" alt="加工石" class="inline" />数: {{ process_result_content.averageConsumeProcessstoneCount }} 個 <br />
-         ⇒<img src="./meso.png" alt="メル" class="inline" /> {{ formatter.format((process_result_content.averageConsumeProcessstoneCount * cost_processstone_per_one * getDiscount(process_result_content.discount)))}} メル
-      </div>
-    </div>
-  </div>
 </template>

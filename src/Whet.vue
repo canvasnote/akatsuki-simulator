@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-// import whet_table from './WhetTable.vue'
-// import WhetTable from './WhetTable.vue'
+
+const formatter = new Intl.NumberFormat('ja-JP', { style: 'decimal', minimumIntegerDigits: 1, useGrouping: true });
 
 const whet_table_proto = {
   // 研磨回数10回に対する各ステータス上昇確率
@@ -186,73 +186,94 @@ const whet_calc = () => {
 </script>
 
 <template>
-    <div id="whet">
-    <h2>研磨</h2>
-    <div id="whet_settings">
-      <h3>設定</h3>
+    <div id="whet_settings" class="row container-fluid">
+        <h2>研磨</h2>
+        <div id="whet_settings" class="card">
+            <h3 class="card-title">設定</h3>
+            <div id="first" class="field row">
+                <div class="input-group">
+                    <div class="card-subtitle col-2">条件①</div>
+                    <label for="firstCount" class="input-group-text">最初の</label>
+                    <select id="firstCount" class="form-select" v-model.number="firstCount">
+                        <option v-for="n in 10" :key="n" :value="n">{{ n }}</option>
+                    </select>
+                    <div class="input-group-text">回の研磨でステータス+</div>
+                    <input type="number" class="form-control" v-model.number="firstBonus" />
+                </div>
+            </div>
 
-      <div id="first" class="field">
-        <h4>条件①</h4>
-        <label for="firstCount">最初の</label>
-        <select id="firstCount" v-model.number="firstCount">
-          <option v-for="n in 10" :key="n" :value="n">{{ n }}</option>
-        </select>
-        回の研磨でステータス+
-        <input type="number" v-model.number="firstBonus" />
-      </div>
+            <div id="total" class="field row">
+                <div class="input-group">
+                    <div class="card-subtitle col-2">条件②</div>
+                    <label class="input-group-text">10回の合計でステータス+</label>
+                    <input type="number" class="form-control" v-model.number="totalBonus" />
+                </div>
+            </div>
 
-      <div id="total" class="field">
-        <h4>条件②</h4>
-        <label>10回の合計でステータス+</label>
-        <input type="number" v-model.number="totalBonus" />
-      </div>
-      <button id="button_whet_calc" @click="whet_calc">計算</button>
-    </div>
-
-    <div id="whet_result">
-      <h3>結果</h3>
-      <div id="whet_result_content">
-        <!-- 結果表示エリア -->
-        <div class="whet result summary">
-          <h4>サマリー</h4>
-          シミュレーション回数: {{ whet_result_content.simulationCount }} 回<br />
-          平均ステータス: {{ whet_result_content.valueAvg.toFixed(2) }} <br />
-          最大ステータス: {{ whet_result_content.valueMax }} <br />
-          最小ステータス: {{ whet_result_content.valueMin }} <br />
-        </div> 
-        <div class="whet result first">
-          <h4>条件①</h4>
-          条件を満たす確率: {{ whet_result_content.probability_first.toFixed(2) }} %<br />
-          平均消費研磨石(<img src="./whetstone.png" alt="研磨石" class="inline" />)数: {{ whet_result_content.consumeWhetstoneCountFirst.toFixed(2) }} 個 <br />
-          ⇒砕けた竜の鱗<img src="./dragonscale.png" alt="竜の鱗" class="inline" /> {{ (whet_result_content.consumeWhetstoneCountFirst * 10).toFixed(2) }}個分 <br />
-          ⇒竜の鱗包み<img src="./dragonscalepack.png" alt="竜の鱗包み" class="inline" /> {{ (whet_result_content.consumeWhetstoneCountFirst * 10 / 20).toFixed(2) }}個分<br />
-          ⇒メイプルポイント {{ (whet_result_content.consumeWhetstoneCountFirst * 20).toFixed(0) }} p
+            <div id="whet_calc" class="field row">
+                <button id="button_whet_calc" class="btn btn-primary" @click="whet_calc">計算</button>
+            </div>
+            
         </div>
-        <div class="whet result total">
-          <h4>条件②</h4>
-          条件を満たす確率: {{ whet_result_content.probability_total.toFixed(2) }} %<br />
-          平均消費研磨石(<img src="./whetstone.png" alt="研磨石" class="inline" />)数: {{ whet_result_content.consumeWhetstoneCountTotal.toFixed(2) }} 個 <br />
-          ⇒砕けた竜の鱗<img src="./dragonscale.png" alt="竜の鱗" class="inline" /> {{ (whet_result_content.consumeWhetstoneCountTotal * 10).toFixed(2) }}個分 <br />
-          ⇒竜の鱗包み<img src="./dragonscalepack.png" alt="竜の鱗包み" class="inline" /> {{ (whet_result_content.consumeWhetstoneCountTotal * 10 / 20).toFixed(2) }}個分<br />
-          ⇒メイプルポイント {{ (whet_result_content.consumeWhetstoneCountTotal * 20).toFixed(0) }} p
+
+        <div id="whet_result" class="card">
+            <h3 class="card-title">結果</h3>
+            <div id="whet_result_content">
+                <!-- 結果表示エリア -->
+                <table class="table">
+                    <thead>サマリー</thead>
+                    <tbody>
+                    <tr><td>シミュレーション回数</td><td>{{ formatter.format(whet_result_content.simulationCount) }} 回</td></tr>
+                    <tr><td>平均ステータス</td><td>{{ whet_result_content.valueAvg.toFixed(2) }}</td></tr>
+                    <tr><td>最大ステータス</td><td>{{ formatter.format(whet_result_content.valueMax) }}</td></tr>
+                    <tr><td>最小ステータス</td><td>{{ formatter.format(whet_result_content.valueMin) }}</td></tr>
+                    </tbody>
+                </table> 
+
+                <table class="table">
+                    <thead>条件①を満たす</thead>
+                    <tbody>
+                    <tr><td>条件を満たす確率</td><td>{{ whet_result_content.probability_first.toFixed(2) }} %</td></tr>
+                    <tr><td>平均消費研磨石<img src="./whetstone.png" alt="研磨石" class="inline" /></td><td>{{ whet_result_content.consumeWhetstoneCountFirst.toFixed(2) }} 個</td></tr>
+                    <tr><td>　⇒砕けた竜の鱗<img src="./dragonscale.png" alt="竜の鱗" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountFirst * 10).toFixed(2) }}個分</td></tr>
+                    <tr><td>　⇒竜の鱗包み<img src="./dragonscalepack.png" alt="竜の鱗包み" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountFirst * 10 / 20).toFixed(2) }}個分</td></tr>
+                    <tr><td>　⇒メイプルポイント</td><td>{{ formatter.format(whet_result_content.consumeWhetstoneCountFirst * 20) }} p分</td></tr>
+                    </tbody>
+                </table> 
+
+                <table class="table">
+                    <thead>条件②を満たす</thead>
+                    <tbody>
+                    <tr><td>条件を満たす確率</td><td>{{ whet_result_content.probability_total.toFixed(2) }} %</td></tr>
+                    <tr><td>平均消費研磨石<img src="./whetstone.png" alt="研磨石" class="inline" /></td><td>{{ whet_result_content.consumeWhetstoneCountTotal.toFixed(2) }} 個</td></tr>
+                    <tr><td>　⇒砕けた竜の鱗<img src="./dragonscale.png" alt="竜の鱗" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountTotal * 10).toFixed(2) }}個分</td></tr>
+                    <tr><td>　⇒竜の鱗包み<img src="./dragonscalepack.png" alt="竜の鱗包み" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountTotal * 10 / 20).toFixed(2) }}個分</td></tr>
+                    <tr><td>　⇒メイプルポイント</td><td>{{ formatter.format(whet_result_content.consumeWhetstoneCountTotal * 20) }} p分</td></tr>
+                    </tbody>
+                </table> 
+
+                <table class="table">
+                    <thead>両方を満たす</thead>
+                    <tbody>
+                    <tr><td>条件を満たす確率</td><td>{{ whet_result_content.probability_both.toFixed(2) }} %</td></tr>
+                    <tr><td>平均消費研磨石<img src="./whetstone.png" alt="研磨石" class="inline" /></td><td>{{ whet_result_content.consumeWhetstoneCountBoth.toFixed(2) }} 個</td></tr>
+                    <tr><td>　⇒砕けた竜の鱗<img src="./dragonscale.png" alt="竜の鱗" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountBoth * 10).toFixed(2) }}個分</td></tr>
+                    <tr><td>　⇒竜の鱗包み<img src="./dragonscalepack.png" alt="竜の鱗包み" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountBoth * 10 / 20).toFixed(2) }}個分</td></tr>
+                    <tr><td>　⇒メイプルポイント</td><td>{{ formatter.format(whet_result_content.consumeWhetstoneCountBoth * 20) }} p分</td></tr>
+                    </tbody>
+                </table> 
+
+                <table class="table">
+                    <thead>どちらか一方でも満たす</thead>
+                    <tbody>
+                    <tr><td>条件を満たす確率</td><td>{{ whet_result_content.probability_either.toFixed(2) }} %</td></tr>
+                    <tr><td>平均消費研磨石<img src="./whetstone.png" alt="研磨石" class="inline" /></td><td>{{ whet_result_content.consumeWhetstoneCountEither.toFixed(2) }} 個</td></tr>
+                    <tr><td>　⇒砕けた竜の鱗<img src="./dragonscale.png" alt="竜の鱗" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountEither * 10).toFixed(2) }}個分</td></tr>
+                    <tr><td>　⇒竜の鱗包み<img src="./dragonscalepack.png" alt="竜の鱗包み" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountEither * 10 / 20).toFixed(2) }}個分</td></tr>
+                    <tr><td>　⇒メイプルポイント</td><td>{{ formatter.format(whet_result_content.consumeWhetstoneCountEither * 20) }} p分</td></tr>
+                    </tbody>
+                </table> 
+            </div>
         </div>
-        <div class="whet result both">
-          <h4>両方を満たす</h4>
-          条件を満たす確率: {{ whet_result_content.probability_both.toFixed(2) }} %<br />
-          平均消費研磨石(<img src="./whetstone.png" alt="研磨石" class="inline" />)数: {{ whet_result_content.consumeWhetstoneCountBoth.toFixed(2) }} 個 <br />
-          ⇒砕けた竜の鱗<img src="./dragonscale.png" alt="竜の鱗" class="inline" /> {{ (whet_result_content.consumeWhetstoneCountBoth * 10).toFixed(2) }}個分 <br />
-          ⇒竜の鱗包み<img src="./dragonscalepack.png" alt="竜の鱗包み" class="inline" /> {{ (whet_result_content.consumeWhetstoneCountBoth * 10 / 20).toFixed(2) }}個分<br />
-          ⇒メイプルポイント {{ (whet_result_content.consumeWhetstoneCountBoth * 20).toFixed(0) }} p
-        </div>  
-        <div class="whet result either">
-          <h4>どちらか一方でも満たす</h4>
-          条件を満たす確率: {{ whet_result_content.probability_either.toFixed(2) }} %<br />
-          平均消費研磨石(<img src="./whetstone.png" alt="研磨石" class="inline" />)数: {{ whet_result_content.consumeWhetstoneCountEither.toFixed(2) }} 個 <br />
-          ⇒砕けた竜の鱗<img src="./dragonscale.png" alt="竜の鱗" class="inline" /> {{ (whet_result_content.consumeWhetstoneCountEither * 10).toFixed(2) }}個分 <br />
-          ⇒竜の鱗包み<img src="./dragonscalepack.png" alt="竜の鱗包み" class="inline" /> {{ (whet_result_content.consumeWhetstoneCountEither * 10 / 20).toFixed(2) }}個分<br />
-          ⇒メイプルポイント {{ (whet_result_content.consumeWhetstoneCountEither * 20).toFixed(0) }} p
-        </div>  
-      </div>
-    </div>
-  </div>
+</div>
 </template>
