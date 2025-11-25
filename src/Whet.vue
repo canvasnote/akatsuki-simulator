@@ -243,7 +243,7 @@ const whet_calc = () => {
                     <tr><td>平均消費研磨石<img src="./whetstone.png" alt="研磨石" class="inline" /></td><td>{{ whet_result_content.consumeWhetstoneCountFirst.toFixed(2) }} 個</td></tr>
                     <tr><td>　⇒砕けた竜の鱗<img src="./dragonscale.png" alt="竜の鱗" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountFirst * 10).toFixed(2) }}個分</td></tr>
                     <tr><td>　⇒竜の鱗包み<img src="./dragonscalepack.png" alt="竜の鱗包み" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountFirst * 10 / 20).toFixed(2) }}個分</td></tr>
-                    <tr><td>　⇒メイプルポイント換算</td><td>{{ formatter.format(whet_result_content.consumeWhetstoneCountFirst * 20) }} p分</td></tr>
+                    <tr><td>　⇒メイプルポイント換算</td><td>{{ formatter.format(whet_result_content.consumeWhetstoneCountFirst * 200) }} p分</td></tr>
                     </tbody>
                 </table> 
 
@@ -254,7 +254,7 @@ const whet_calc = () => {
                     <tr><td>平均消費研磨石<img src="./whetstone.png" alt="研磨石" class="inline" /></td><td>{{ whet_result_content.consumeWhetstoneCountTotal.toFixed(2) }} 個</td></tr>
                     <tr><td>　⇒砕けた竜の鱗<img src="./dragonscale.png" alt="竜の鱗" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountTotal * 10).toFixed(2) }}個分</td></tr>
                     <tr><td>　⇒竜の鱗包み<img src="./dragonscalepack.png" alt="竜の鱗包み" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountTotal * 10 / 20).toFixed(2) }}個分</td></tr>
-                    <tr><td>　⇒メイプルポイント換算</td><td>{{ formatter.format(whet_result_content.consumeWhetstoneCountTotal * 20) }} p分</td></tr>
+                    <tr><td>　⇒メイプルポイント換算</td><td>{{ formatter.format(whet_result_content.consumeWhetstoneCountTotal * 200) }} p分</td></tr>
                     </tbody>
                 </table> 
 
@@ -265,7 +265,7 @@ const whet_calc = () => {
                     <tr><td>平均消費研磨石<img src="./whetstone.png" alt="研磨石" class="inline" /></td><td>{{ whet_result_content.consumeWhetstoneCountBoth.toFixed(2) }} 個</td></tr>
                     <tr><td>　⇒砕けた竜の鱗<img src="./dragonscale.png" alt="竜の鱗" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountBoth * 10).toFixed(2) }}個分</td></tr>
                     <tr><td>　⇒竜の鱗包み<img src="./dragonscalepack.png" alt="竜の鱗包み" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountBoth * 10 / 20).toFixed(2) }}個分</td></tr>
-                    <tr><td>　⇒メイプルポイント換算</td><td>{{ formatter.format(whet_result_content.consumeWhetstoneCountBoth * 20) }} p分</td></tr>
+                    <tr><td>　⇒メイプルポイント換算</td><td>{{ formatter.format(whet_result_content.consumeWhetstoneCountBoth * 200) }} p分</td></tr>
                     </tbody>
                 </table> 
 
@@ -276,7 +276,7 @@ const whet_calc = () => {
                     <tr><td>平均消費研磨石<img src="./whetstone.png" alt="研磨石" class="inline" /></td><td>{{ whet_result_content.consumeWhetstoneCountEither.toFixed(2) }} 個</td></tr>
                     <tr><td>　⇒砕けた竜の鱗<img src="./dragonscale.png" alt="竜の鱗" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountEither * 10).toFixed(2) }}個分</td></tr>
                     <tr><td>　⇒竜の鱗包み<img src="./dragonscalepack.png" alt="竜の鱗包み" class="inline" /></td><td>{{ (whet_result_content.consumeWhetstoneCountEither * 10 / 20).toFixed(2) }}個分</td></tr>
-                    <tr><td>　⇒メイプルポイント換算</td><td>{{ formatter.format(whet_result_content.consumeWhetstoneCountEither * 20) }} p分</td></tr>
+                    <tr><td>　⇒メイプルポイント換算</td><td>{{ formatter.format(whet_result_content.consumeWhetstoneCountEither * 200) }} p分</td></tr>
                     </tbody>
                 </table> 
             </div>
