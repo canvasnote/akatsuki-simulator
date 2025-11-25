@@ -5,6 +5,7 @@ const formatter = new Intl.NumberFormat('ja-JP', { style: 'decimal', minimumInte
 
 const whet_table_proto = {
   // 研磨回数10回に対する各ステータス上昇確率
+  // 情報元: https://home.gamer.com.tw/creationDetail.php?sn=6091116
   1: {
     1: {weight: 65, bonus: 25 },
     2: {weight:  5, bonus: 50 },
@@ -59,11 +60,11 @@ const whet_table_proto = {
     3: {weight:  7, bonus: 150 },
     4: {weight:  5, bonus: 200 },
   },
-  10: { // TODO: 確率の合計が100ではない。正確な情報が必要
+  10: {
     1: {weight: 85, bonus: 50  },
     2: {weight:  9, bonus: 100 },
     3: {weight:  4, bonus: 150 },
-    4: {weight:  5, bonus: 200 },
+    4: {weight:  2, bonus: 200 },
   },
 }
 
