@@ -5,6 +5,7 @@ import { ref } from 'vue'
 import './Whet.vue'
 import Whet from './Whet.vue'
 import Process from './Process.vue'
+import Footer from './Footer.vue'
 </script>
 
 <template>
@@ -24,7 +25,9 @@ import Process from './Process.vue'
         <Process />
       </div>
     </div>
-  </div>
-  
+    <div class="row">
+      <Footer />
+    </div>
+  </div>  
 </template>
 

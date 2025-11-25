@@ -48,6 +48,19 @@ processLevelList.forEach((level) => {
 });
 console.log(process_probability_table);
 
+const process_cost_table: {[key: number]: number} = {
+    1: 1,
+    2: 1,
+    3: 1,
+    4: 1,
+    5: 1,
+    6: 2,
+    7: 2,
+    8: 2,
+    9: 3,
+    10:3,
+}
+
 const getDiscount = (discountType: string) => {
   switch(discountType) {
     case 'None':
@@ -90,7 +103,7 @@ const process_calc = () => {
         // console.log(process_probability_table);
         // console.log(process_probability_table[current_process_level]);
         const result = process_probability_table[current_process_level][Math.floor(Math.random() * 100)];
-        consume_processstone_count++;
+        consume_processstone_count += process_cost_table[current_process_level];
 
         if(result === "Success") {
             if(current_process_level >= targetProcessLevel.value) {
