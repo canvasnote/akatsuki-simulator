@@ -192,6 +192,7 @@ const whet_calc = () => {
         <div id="whet_describe" class="card">
             宝玉を10段階まで研磨することを10万回シミュレーションし、<br />
             条件①と②を満たす確率とそれに必要な研磨石数を計算します。<br />
+            研磨にかかるコストとしての研磨石のほかに、研磨のリセットに300mメルが必要なことに注意してください。<br />
         </div>
 
         <div id="whet_settings" class="card">
