@@ -15,6 +15,8 @@ import Footer from './Footer.vue'
         <img src="./whetstone.png" alt="研磨石" class="inline" />
         赤月の森　宝玉シミュレーター
         <img src="./whetstone.png" alt="研磨石" class="inline" />
+        　
+        <a href="https://twitter.com/intent/tweet?url=https://canvasnote.github.io/akatsuki-simulator/"><img src="./x_post.png" alt="Post to X" /></a>
       </h1>
     </div>
     <div class="row">
